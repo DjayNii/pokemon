@@ -23,11 +23,21 @@ async function fetchData() {
     const statAttack = data.stats[1].base_stat;
     const statDefense = data.stats[2].base_stat;
     const statSpeed = data.stats[5].base_stat;
+    const type = data.types;
+
+    let appendType = (types) => {
+      types.forEach((item) => {
+        let span = document.createElement("SPAN");
+        span.textContent = item.type.name;
+        document.querySelector(".types").appendChild(span);
+      });
+    };
 
     targetDiv.innerHTML = `<p><span>HP: </span>${hp}</p>
     <img src="${pokemonSprtie}" alt="pokemonsprite" class="pokemonimg" />
     <h1 class="pokeName">  ${name}</h1>
     <p class = "gen" >${gen}</p>
+    <div class = "types">   </div>
     <div class="stats">
     <div>
       <h3>${statAttack}</h3>
@@ -42,6 +52,8 @@ async function fetchData() {
       <p>Speed</p>
     </div>
   </div>`;
+
+    appendType(type);
   } catch (error) {
     console.error(error);
     showError();

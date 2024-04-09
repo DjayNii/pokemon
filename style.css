@@ -62,6 +62,12 @@ body {
   text-transform: uppercase;
 }
 
+.types {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2rem;
+}
+
 .stats {
   display: flex;
   width: 30rem;
