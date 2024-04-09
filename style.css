@@ -20,6 +20,10 @@ body {
   margin-bottom: 2rem;
 }
 
+.error {
+  background-color: aqua;
+}
+
 .pokemonName {
   width: 15rem;
   height: 2rem;
@@ -68,13 +72,17 @@ body {
   column-gap: 2rem;
 }
 
+.types span {
+  text-transform: capitalize;
+  text-align: center;
+  width: 4rem;
+  height: 2rem;
+  padding-top: 0.5rem;
+  border-radius: 10px;
+}
+
 .stats {
   display: flex;
   width: 30rem;
   justify-content: space-around;
-}
-
-.error {
-  display: none;
-  pointer-events: none;
 }

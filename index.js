@@ -1,29 +1,55 @@
 async function fetchData() {
   const name = document.querySelector(".pokemonName").value.toLowerCase();
 
+  // colors for types
+  const typeColor = {
+    bug: "#26de81",
+    dragon: "#ffeaa7",
+    electric: "#fed330",
+    fairy: "#FF0069",
+    fighting: "#30336b",
+    fire: "#f0932b",
+    flying: "#81ecec",
+    grass: "#00b894",
+    ground: "#EFB549",
+    ghost: "#a55eea",
+    ice: "#74b9ff",
+    normal: "#95afc0",
+    poison: "#6c5ce7",
+    psychic: "#a29bfe",
+    rock: "#2d3436",
+    water: "#0190FF",
+    steel: "#9a8c98",
+  };
+
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
     const promise = await fetch(
       `https://pokeapi.co/api/v2/pokemon-species/${name}`
     );
 
-    const targetDiv = document.querySelector(".card");
     if (!response.ok && !promise.ok) {
       throw new Error("Could not get Pokemon data");
     }
 
+    const targetDiv = document.querySelector(".card");
+
+    // converting api responces into json
     const data = await response.json();
     const data2 = await promise.json();
+
     console.log(data);
     console.log(data2);
 
-    pokemonSprtie = data.sprites.other.home.front_default;
+    // getting all important data from api
+    const pokemonSprtie = data.sprites.other.home.front_default;
     const gen = data2.generation.name;
     const hp = data.stats[0].base_stat;
     const statAttack = data.stats[1].base_stat;
     const statDefense = data.stats[2].base_stat;
     const statSpeed = data.stats[5].base_stat;
     const type = data.types;
+    const themeColor = typeColor[data.types[0].type.name];
 
     let appendType = (types) => {
       types.forEach((item) => {
@@ -33,6 +59,15 @@ async function fetchData() {
       });
     };
 
+    // it  sets a semi circle at background and sets background colour for according to type
+    let styleCard = (color) => {
+      targetDiv.style.background = `radial-gradient(circle 15rem at 50% 1%, ${color} 46%, #ffffff 36%)`;
+      targetDiv.querySelectorAll(".types span").forEach((typeColor) => {
+        typeColor.style.backgroundColor = color;
+      });
+    };
+
+    // html which goes into card div
     targetDiv.innerHTML = `<p><span>HP: </span>${hp}</p>
     <img src="${pokemonSprtie}" alt="pokemonsprite" class="pokemonimg" />
     <h1 class="pokeName">  ${name}</h1>
@@ -54,6 +89,7 @@ async function fetchData() {
   </div>`;
 
     appendType(type);
+    styleCard(themeColor);
   } catch (error) {
     console.error(error);
     showError();
@@ -61,7 +97,8 @@ async function fetchData() {
 }
 
 function showError() {
-  const errorStatement = document.querySelector(".error");
-  errorStatement.style.display = "block";
-  errorStatement.style.color = "red";
+  const errorStatement = document.createElement("h2");
+  const statement = "pokemon not found";
+  errorStatement.textContent = statement;
+  document.querySelector(".error").appendChild(errorStatement);
 }
