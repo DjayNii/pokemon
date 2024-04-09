@@ -33,6 +33,7 @@ async function fetchData() {
     }
 
     const targetDiv = document.querySelector(".card");
+    const targetDiv2 = document.querySelector(".conatiner");
 
     // converting api responces into json
     const data = await response.json();
@@ -61,7 +62,8 @@ async function fetchData() {
 
     // it  sets a semi circle at background and sets background colour for according to type
     let styleCard = (color) => {
-      targetDiv.style.background = `radial-gradient(circle 15rem at 50% 1%, ${color} 46%, #ffffff 36%)`;
+      targetDiv.style.background = `radial-gradient(circle 15rem at 50% 1%, ${color} 6%, #ffffff 36%)`;
+      targetDiv2.style.background = `linear-gradient(to top right,${color} , #000000)`;
       targetDiv.querySelectorAll(".types span").forEach((typeColor) => {
         typeColor.style.backgroundColor = color;
       });
