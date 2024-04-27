@@ -67,6 +67,10 @@ async function fetchData() {
       targetDiv2.style.background = `linear-gradient(to top right,${color} , #000000)`;
       targetDiv.querySelectorAll(".types span").forEach((typeColor) => {
         typeColor.style.backgroundColor = color;
+        if(color === "#22223b"){
+          typeColor.style.color = rbg(255,255,255);
+        }
+        
       });
     };
 
