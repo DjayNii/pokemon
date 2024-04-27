@@ -20,6 +20,7 @@ async function fetchData() {
     rock: "#2d3436",
     water: "#0190FF",
     steel: "#9a8c98",
+    dark: "#22223b",
   };
 
   try {
